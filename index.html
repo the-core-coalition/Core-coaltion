@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CORE Coalition - Praxism</title>
+  <meta name="description" content="CORE Coalition advances Praxism: a governance and ethics framework for justice, community cooperation, and ethical technology." />
+  <meta property="og:title" content="CORE Coalition - Praxism" />
+  <meta property="og:description" content="Justice, community, ethical technology. From the CORE, we rebuild civilization." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://core-coalition.org/" />
+  <link rel="icon" href="/favicon.ico" />
+  <style>
+    :root{
+      --bg:#0a0b10;
+      --panel:#11121a;
+      --ink:#e6e6f0;
+      --muted:#a6accd;
+      --brand:#9ee6d4;
+      --brand2:#ffd46a;
+      --accent:#5cd3ff;
+      --maxw:1120px;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:radial-gradient(1200px 800px at 10% -10%, rgba(158,230,212,.12), transparent 60%),radial-gradient(1000px 600px at 90% 0%, rgba(92,211,255,.10), transparent 55%), var(--bg);color:var(--ink);font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, sans-serif}
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+    
+    header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,11,16,.75);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid rgba(255,255,255,.06);transition:transform 0.3s ease}
+    header.hide{transform:translateY(-100%)}
+    
+    .nav{max-width:var(--maxw);margin:auto;display:flex;align-items:center;gap:24px;padding:14px 18px}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);cursor:pointer;user-select:none}
+    .logo span{font-weight:700;letter-spacing:.3px}
+    .nav a.link{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:10px;cursor:pointer;user-select:none}
+    .nav a.link:hover{color:var(--ink);background:rgba(255,255,255,.06)}
+    .nav a.link.active{color:var(--brand2)}
+
+    main{margin-top:60px;min-height:calc(100vh - 60px)}
+    .page{display:none}
+    .page.active{display:block}
+    
+    .hero{position:relative;overflow:hidden}
+    .wrap{max-width:var(--maxw);margin:auto;padding:56px 18px}
+    .hero .wrap{padding:80px 18px 60px}
+    .title{font-size:clamp(28px,4vw,44px);line-height:1.15;margin:0 0 10px}
+    .subtitle{color:var(--muted);max-width:780px;margin:0 0 26px}
+    .cta{display:flex;flex-wrap:wrap;gap:12px}
+    .btn{appearance:none;border:0;border-radius:12px;padding:12px 16px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+    .btn.primary{background:linear-gradient(90deg, var(--brand2), var(--brand));color:#111;border:0}
+    .btn.ghost{background:transparent;color:var(--ink);border:1px solid rgba(255,255,255,.15)}
+    .btn.primary:hover{opacity:.9}
+    .btn.ghost:hover{background:rgba(255,255,255,.08)}
+
+    .panel{background:var(--panel);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+    section{padding:28px 0}
+    h2{font-size:clamp(22px,3vw,30px);margin:0 0 10px}
+    h3{font-size:clamp(18px,2.5vw,24px);margin:0 0 10px}
+    .grid{display:grid;gap:18px}
+    @media(min-width:900px){.grid.cols-3{grid-template-columns:repeat(3,1fr)}.grid.cols-2{grid-template-columns:1fr 1fr}}
+
+    details{background:#0e1018;border:1px solid rgba(255,255,255,.08);border-radius:12px}
+    details>summary{cursor:pointer;padding:14px 16px;color:var(--ink);list-style:none;font-weight:600}
+    details[open]>summary{border-bottom:1px solid rgba(255,255,255,.08)}
+    details .content{padding:14px 16px;color:var(--muted)}
+
+    footer{margin-top:40px;border-top:1px solid rgba(255,255,255,.08);background:#0a0c12}
+    .foot{max-width:var(--maxw);margin:auto;padding:22px 18px;color:var(--muted);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+    
+    .socials{display:flex;gap:14px;align-items:center}
+    .social-link{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1.5px solid rgba(255,212,106,.4);color:var(--brand2);text-decoration:none;transition:all 0.2s;font-size:18px}
+    .social-link:hover{background:rgba(255,212,106,.15);border-color:rgba(255,212,106,.8)}
+
+    .hero-svg{position:absolute;inset:auto 0 0 50%;translate:-50% 10px;opacity:.18;pointer-events:none;filter:drop-shadow(0 30px 60px rgba(0,0,0,.45))}
+    
+    .page-header{position:relative;padding:40px 18px;text-align:center}
+    .page-header::before{content:'';position:absolute;inset:0;opacity:.08;pointer-events:none;background-image:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%25" stop-color="%239ee6d4"/><stop offset="100%25" stop-color="%23ffd46a"/></linearGradient></defs><g opacity=".55" stroke="url(%23g)" fill="none"><circle cx="600" cy="450" r="360" stroke-width="1.5"/><circle cx="600" cy="450" r="300" stroke-width="1"/><circle cx="600" cy="450" r="240" stroke-width="1"/></g><path d="M600 50 L770 450 L600 750 L430 450 Z" fill="none" stroke="url(%23g)" stroke-width="2.2"/></svg>');background-repeat:no-repeat;background-position:center;background-size:contain}
+    .page-header-content{position:relative;z-index:1}
+    .page-header h2{margin:0}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(158,230,212,.1);color:var(--brand);border:1px solid rgba(158,230,212,.4);font-weight:600}
+    .code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;background:#0f1320;border:1px solid rgba(255,255,255,.08);padding:2px 6px;border-radius:8px}
+
+    /* Contact Modal Styles */
+    .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center;animation:fadeIn 0.3s}
+    .modal-overlay.active{display:flex}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    
+    .modal-content{background:var(--panel);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);max-width:500px;width:90%;max-height:90vh;overflow-y:auto;position:relative;animation:slideUp 0.3s;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    @keyframes slideUp{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+    
+    .modal-header{padding:24px 24px 16px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center}
+    .modal-header h3{margin:0;font-size:24px}
+    .modal-close{background:transparent;border:none;color:var(--muted);font-size:28px;cursor:pointer;padding:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:all 0.2s}
+    .modal-close:hover{background:rgba(255,255,255,.1);color:var(--ink)}
+    
+    .modal-body{padding:24px}
+    .form-group{margin-bottom:18px}
+    .form-group label{display:block;margin-bottom:6px;font-weight:600;color:var(--ink)}
+    .form-group input,.form-group textarea{width:100%;padding:12px;background:#0a0b10;border:1px solid rgba(255,255,255,.15);border-radius:8px;color:var(--ink);font-family:inherit;font-size:15px}
+    .form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(158,230,212,.1)}
+    .form-group textarea{min-height:120px;resize:vertical}
+    
+    .form-status{padding:12px;border-radius:8px;margin-bottom:16px;display:none}
+    .form-status.success{background:rgba(158,230,212,.15);border:1px solid rgba(158,230,212,.4);color:var(--brand)}
+    .form-status.error{background:rgba(255,107,107,.15);border:1px solid rgba(255,107,107,.4);color:#ff6b6b}
+    .form-status.show{display:block}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="logo" onclick="showPage('home'); return false;">
+        <svg width="26" height="26" viewBox="0 0 52 52" fill="none" aria-hidden="true">
+          <circle cx="26" cy="26" r="23.5" stroke="url(#g1)" stroke-width="1.5"/>
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="52" y2="52"><stop stop-color="#9ee6d4"/><stop offset="1" stop-color="#ffd46a"/></linearGradient>
+          </defs>
+          <path d="M26 6 L34 20 L26 46 L18 20 Z" fill="url(#g1)" opacity=".35"/>
+        </svg>
+        <span>CORE Coalition</span>
+      </a>
+      <div style="flex:1"></div>
+      <a class="link" onclick="showPage('home'); return false;">Home</a>
+      <a class="link" onclick="showPage('codex'); return false;">Codex</a>
+      <a class="link" onclick="showPage('doctrine'); return false;">Doctrine</a>
+      <a class="link" onclick="showPage('technology'); return false;">Technology</a>
+      <a class="link" onclick="showPage('contact'); return false;">Contact</a>
+      <a class="link" onclick="showPage('donate'); return false;">Donate</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+      <section class="hero">
+        <div class="wrap">
+          <div class="badge">Praxism · Ethical Governance</div>
+          <h1 class="title">Justice, community, ethical technology.</h1>
+          <p class="subtitle">CORE Coalition advances <strong>Praxism</strong> – a constitutional framework for moral reconstruction of society: transparent governance, human dignity, and technology aligned with life.</p>
+          <div class="cta">
+            <a class="btn primary" onclick="showPage('doctrine'); return false;">Read the doctrine</a>
+            <a class="btn ghost" onclick="showPage('contact'); return false;">Join / Support</a>
+          </div>
+        </div>
+        <svg class="hero-svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="CORE emblem">
+          <defs>
+            <linearGradient id="glow1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#9ee6d4"/>
+              <stop offset="100%" stop-color="#ffd46a"/>
+            </linearGradient>
+            <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="6"/>
+            </filter>
+          </defs>
+          <g opacity=".55" stroke="url(#glow1)" fill="none">
+            <circle cx="600" cy="520" r="360" stroke-width="1.5"/>
+            <circle cx="600" cy="520" r="300" stroke-width="1"/>
+            <circle cx="600" cy="520" r="240" stroke-width="1"/>
+          </g>
+          <path d="M600 120 L770 520 L600 820 L430 520 Z" fill="none" stroke="url(#glow1)" stroke-width="2.2" />
+          <g stroke="url(#glow1)" stroke-width="2">
+            <path d="M540 210 L540 740" />
+            <path d="M660 210 L660 740" />
+            <g opacity=".9">
+              <path d="M540 250 L660 290"/>
+              <path d="M540 310 L660 350"/>
+              <path d="M540 370 L660 410"/>
+              <path d="M540 430 L660 470"/>
+              <path d="M540 490 L660 530"/>
+              <path d="M540 550 L660 590"/>
+              <path d="M540 610 L660 650"/>
+              <path d="M540 670 L660 710"/>
+            </g>
+            <path d="M540 210 L600 190 L660 210" />
+            <path d="M540 740 L600 760 L660 740" />
+          </g>
+          <ellipse cx="600" cy="520" rx="180" ry="250" fill="url(#glow1)" opacity=".06" filter="url(#soft)"/>
+        </svg>
+      </section>
+      <section>
+        <div class="wrap grid cols-2">
+          <div class="panel">
+            <h2>About CORE</h2>
+            <p>CORE Coalition is a movement dedicated to rebuilding society around principles of justice, transparency, and human dignity. We believe that when people are empowered with knowledge and given genuine agency, they can create systems that work for everyone.</p>
+            <p>Our work begins locally and expands thoughtfully. We're not imposing change – we're offering a framework that communities can adapt and adopt.</p>
+          </div>
+          <div class="panel">
+            <h2>Our Message</h2>
+            <p>The world doesn't have to be this way. Systems built on extraction and opacity can be replaced with systems built on transparency and service.</p>
+            <p>We're calling for those who see the problems to join us in building solutions. Not through force, but through sustained, thoughtful community work that proves another way is possible.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- CODEX PAGE -->
+    <div id="codex" class="page">
+      <section class="page-header">
+        <div class="page-header-content">
+          <h2>CORE & Praxism Codex</h2>
+          <p class="subtitle">Understanding why CORE exists and the ideals behind Praxism.</p>
+        </div>
+      </section>
+      <section>
+        <div class="wrap grid cols-2">
+          <div class="panel">
+            <h2>Why CORE Exists</h2>
+            <p>People lack reliable access to essentials and clarity on their rights. Systems are opaque and incentives often reward extraction over service. CORE exists to align power with responsibility through a practical charter communities can use.</p>
+            <p>Our emblem – a seed with DNA at the center – symbolizes life and renewal.</p>
+          </div>
+          <div class="panel">
+            <h2>What is Praxism?</h2>
+            <p>Praxism is a practice-first model: write the rules, publish them, measure results. It is built around four documents that stay public and versioned:</p>
+            <ul style="margin:0;padding-left:18px">
+              <li><strong>Constitution:</strong> roles, checks, open records, audits.</li>
+              <li><strong>Bill of Rights:</strong> universal essentials and civil liberties.</li>
+              <li><strong>Criminal Code:</strong> clear harms, proportional responses.</li>
+              <li><strong>Technology Rights:</strong> data property, privacy, safety.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="wrap grid cols-2">
+          <div class="panel">
+            <h2>What We Stand For</h2>
+            <ul style="margin:0;padding-left:18px">
+              <li>Every person's access to housing, healthcare, food, education, and privacy.</li>
+              <li>Government limited by law and transparent by default.</li>
+              <li>Technology that is safe, documented, and accountable to the public.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h2>What We Fight</h2>
+            <ul style="margin:0;padding-left:18px">
+              <li>Secretive decision-making and conflicts of interest.</li>
+              <li>Predatory data collection and surveillance without consent.</li>
+              <li>Policies that criminalize poverty or restrict essential access.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="wrap">
+          <h2>Praxism Documents</h2>
+          <p class="subtitle">Download the full texts. Place the PDFs in <span class="code">/docs/</span> on your site to activate these links.</p>
+          <div class="grid cols-2">
+            <div class="panel">
+              <ul style="margin:0;padding-left:18px">
+                <li><a href="/docs/Praxism%20Legal%20Binding%20Constitution.pdf">Constitution</a></li>
+                <li><a href="/docs/Praxism%20Legal%20Binding%20Bill%20of%20Rights.pdf">Bill of Rights</a></li>
+                <li><a href="/docs/Praxism%20Lagal%20Binding%20Criminal%20Code%20Outline.pdf">Criminal Code Outline</a></li>
+              </ul>
+            </div>
+            <div class="panel">
+              <ul style="margin:0;padding-left:18px">
+                <li><a href="/docs/Praxism_Bill_of_Technology_Rights.pdf">Bill of Technology Rights</a></li>
+                <li><a href="/docs/Praxism_Digital_Media_Transport_Commerce_Amendments.pdf">Digital Media & Commerce Amendments</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- DOCTRINE PAGE -->
+    <div id="doctrine" class="page">
+      <section class="page-header">
+        <div class="page-header-content">
+          <h2>Doctrine & Governance</h2>
+          <p class="subtitle">Core principles and structural framework from the Constitution and Bill of Rights.</p>
+        </div>
+      </section>
+      <section>
+        <div class="wrap">
+          <h3>Core Principles</h3>
+          <div class="grid cols-3">
+            <details class="panel"><summary>Human Dignity</summary><div class="content">Universal rights to speech, due process, privacy, equality, and access to housing, food, water, healthcare, and education.</div></details>
+            <details class="panel"><summary>Justice & Due Process</summary><div class="content">Independent courts, public trials, right to counsel and appeal, strict standards for evidence, and transparency.</div></details>
+            <details class="panel"><summary>Transparency & Anti-Corruption</summary><div class="content">Public budgets, open registers, whistleblower protections, lifetime bans for corrupt officials.</div></details>
+            <details class="panel"><summary>Citizen Assembly</summary><div class="content">Randomly selected oversight chamber with referendum powers and legislative review.</div></details>
+            <details class="panel"><summary>CORE Authority</summary><div class="content">Operational branch coordinating defense, science, engineering, medical, and relief missions under constitutional limits.</div></details>
+            <details class="panel"><summary>Citizen Credits System</summary><div class="content">Public services funded upfront. No income or consumption taxes; services guaranteed as rights.</div></details>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="wrap grid cols-2">
+          <div class="panel">
+            <h2>Governance Structure</h2>
+            <p>Four co-equal branches: Praetor, Global Council, Citizen Assembly, and CORE Authority. Checks and balances enforced by the Supreme Tribunal.</p>
+            <ul style="margin:0;padding-left:18px">
+              <li>Open legislative sessions with mandatory archives.</li>
+              <li>Citizen petitions and referenda for direct democracy.</li>
+              <li>Sunset provisions for laws, periodic reviews.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h2>Justice System</h2>
+            <p>Criminal classifications by harm: Class 1-3 Felonies and Misdemeanors. Capital crimes limited to the gravest offenses; rehabilitation prioritized for nonviolent cases.</p>
+            <ul style="margin:0;padding-left:18px">
+              <li>Automatic review for severe sentences.</li>
+              <li>Anti-corruption courts with asset seizure powers.</li>
+              <li>Public trials except narrow privacy/security cases.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- TECHNOLOGY PAGE -->
+    <div id="technology" class="page">
+      <section class="page-header">
+        <div class="page-header-content">
+          <h2>Technology: Rights, Ethics & Innovation</h2>
+          <p class="subtitle">Principles for ethical technology aligned with human dignity.</p>
+        </div>
+      </section>
+      <section>
+        <div class="wrap grid cols-2">
+          <div class="panel">
+            <h2>Technology Rights</h2>
+            <p>People own their data. No sale or licensing of personal information. Strong client-side privacy, transparent systems, and public access to state-funded research.</p>
+            <ul style="margin:0;padding-left:18px">
+              <li>Right to digital privacy and secure communications.</li>
+              <li>Open-access scientific outputs funded by the public.</li>
+              <li>Independent audits of critical platforms.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h2>Digital Media & Commerce</h2>
+            <p>Predatory advertising and dark contracts are abolished. Platforms must label content, end coercive billing, and respect user rights.</p>
+            <ul style="margin:0;padding-left:18px">
+              <li>Truth-in-advertising certification.</li>
+              <li>Fair user agreements – no hidden waivers.</li>
+              <li>Citizen Complaint Boards with binding powers.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="wrap grid cols-2">
+          <div class="panel">
+            <h2>AI & Automation</h2>
+            <p>Algorithmic systems must be transparent, auditable, and aligned with human rights. No automated decisions that affect liberty or access without human review.</p>
+            <ul style="margin:0;padding-left:18px">
+              <li>Public documentation of AI systems in government.</li>
+              <li>Right to explanation for algorithmic decisions.</li>
+              <li>Prohibition on discrimination in automated systems.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h2>Infrastructure & Access</h2>
+            <p>Digital infrastructure is a public good. Universal broadband access, affordable devices, and digital literacy programs guaranteed as rights.</p>
+            <ul style="margin:0;padding-left:18px">
+              <li>Public digital commons and open-source standards.</li>
+              <li>Protection from monopolistic control.</li>
+              <li>Community digital support centers.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page">
+      <section>
+        <div class="wrap grid cols-2">
+          <div class="panel">
+            <h2>Join / Support CORE</h2>
+            <p>We're assembling a founders' circle to execute the first pilot. If you share our mission, reach out.</p>
+            <ul style="margin:0;padding-left:18px">
+              <li><strong>Advisors:</strong> governance, legal, medical, engineering.</li>
+              <li><strong>Partners:</strong> community orgs, shelters, clinics.</li>
+              <li><strong>Supporters:</strong> resources for the first pilot launch.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h2>Contact Us</h2>
+            <p>We'd love to hear from you. Send us a message and we'll get back to you as soon as possible.</p>
+            <button class="btn primary" onclick="openContactModal()">Send us a Message</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- DONATE PAGE -->
+    <div id="donate" class="page">
+      <section>
+        <div class="wrap">
+          <h2>Support CORE</h2>
+          <p class="subtitle">Your contribution funds education, community clinics, and disaster-readiness infrastructure.</p>
+          <div class="grid cols-2">
+            <div class="panel">
+              <h3>Why Donate?</h3>
+              <ul style="margin:0;padding-left:18px">
+                <li>Fund community pilots in Wisconsin and beyond.</li>
+                <li>Support rights literacy and digital privacy clinics.</li>
+                <li>Advance transparent, accountable governance.</li>
+                <li>Build infrastructure for disaster response & relief.</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>Donate via GoFundMe</h3>
+              <p>Every dollar supports CORE's mission to rebuild society with justice and transparency at the center.</p>
+              <a class="btn primary" href="https://www.gofundme.com" target="_blank" rel="noopener">Donate on GoFundMe</a>
+              <p style="margin-top:16px;font-size:14px;color:var(--muted);"><strong>Note:</strong> Update the GoFundMe link once your campaign is live.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Contact Modal -->
+  <div id="contactModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Contact CORE Coalition</h3>
+        <button class="modal-close" onclick="closeContactModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="formStatus" class="form-status"></div>
+        <form id="contactForm" onsubmit="submitContactForm(event)">
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject *</label>
+            <input type="text" id="subject" name="subject" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit" class="btn primary" style="width:100%">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="foot">
+      <div>&copy; <span id="y"></span> CORE Coalition · Praxism</div>
+      <div class="socials">
+        <a class="social-link" href="https://www.instagram.com/the_core_coalition" target="_blank" rel="noopener" title="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <circle cx="17.5" cy="6.5" r="1.5"></circle>
+          </svg>
+        </a>
+        <a class="social-link" href="https://www.reddit.com/r/the_core_coalition" target="_blank" rel="noopener" title="Reddit">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path fill="#0a0b10" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3-8c0-.83-.67-1.5-1.5-1.5S12 10.67 12 11.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5zm-6 0c0-.83-.67-1.5-1.5-1.5S6 10.67 6 11.5 6.67 13 7.5 13 9 12.33 9 11.5zm5.5 3c.83 0 1.5-.67 1.5-1.5H8c0 .83.67 1.5 1.5 1.5s1.5.67 1.5 1.5h3c0-.83.67-1.5 1.5-1.5z"></path>
+          </svg>
+        </a>
+        <a class="social-link" href="https://www.tiktok.com/@the_core_coalition" target="_blank" rel="noopener" title="TikTok">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22.46 6c-1.5-.46-3.08-.67-4.77-.54-1.06.08-2.09.35-3.05.77V4.5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v10.26c0 1.66-1.34 3-3 3-1.66 0-3-1.34-3-3s1.34-3 3-3c.28 0 .55.04.81.11V7.02c-.27-.04-.54-.07-.81-.07-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6v-4.26c1.23.94 2.75 1.5 4.4 1.5 1.69 0 3.27-.21 4.77-.67V7.5c0-.83-.67-1.5-1.5-1.5z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let lastY = window.scrollY;
+    const hdr = document.querySelector('header');
+    
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y > lastY && y > 80) {
+        hdr.classList.add('hide');
+      } else {
+        hdr.classList.remove('hide');
+      }
+      lastY = y;
+    });
+
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+      window.scrollTo(0, 0);
+      hdr.classList.remove('hide');
+    }
+
+    // Contact Modal Functions
+    function openContactModal() {
+      document.getElementById('contactModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeContactModal() {
+      document.getElementById('contactModal').classList.remove('active');
+      document.body.style.overflow = '';
+      document.getElementById('contactForm').reset();
+      document.getElementById('formStatus').classList.remove('show', 'success', 'error');
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('contactModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeContactModal();
+      }
+    });
+
+    // Handle form submission
+    async function submitContactForm(e) {
+      e.preventDefault();
+      
+      const form = e.target;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const statusDiv = document.getElementById('formStatus');
+      
+      // Disable submit button
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      
+      // Get form data
+      const formData = {
+        name: form.name.value,
+        email: form.email.value,
+        subject: form.subject.value,
+        message: form.message.value
+      };
+      
+      try {
+        // Send to Cloudflare Worker
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        });
+        
+        if (response.ok) {
+          statusDiv.textContent = 'Message sent successfully! We\'ll get back to you soon.';
+          statusDiv.className = 'form-status success show';
+          form.reset();
+          
+          // Close modal after 3 seconds
+          setTimeout(() => {
+            closeContactModal();
+          }, 3000);
+        } else {
+          throw new Error('Failed to send message');
+        }
+      } catch (error) {
+        statusDiv.textContent = 'Sorry, there was an error sending your message. Please try emailing us directly at contact@core-coalition.org';
+        statusDiv.className = 'form-status error show';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+      }
+    }
+  </script>
+</body>
+</html>
