@@ -34,9 +34,19 @@
     .nav{max-width:var(--maxw);margin:auto;display:flex;align-items:center;gap:24px;padding:14px 18px}
     .logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);cursor:pointer;user-select:none}
     .logo span{font-weight:700;letter-spacing:.3px}
+    .nav-links{display:flex;gap:24px;align-items:center}
     .nav a.link{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:10px;cursor:pointer;user-select:none}
     .nav a.link:hover{color:var(--ink);background:rgba(255,255,255,.06)}
     .nav a.link.active{color:var(--brand2)}
+    
+    .mobile-menu-btn{display:none;background:transparent;border:none;color:var(--ink);font-size:24px;cursor:pointer;padding:8px}
+    
+    @media(max-width:768px){
+      .nav-links{position:fixed;top:60px;left:0;right:0;background:rgba(10,11,16,.98);backdrop-filter:saturate(140%) blur(12px);flex-direction:column;gap:0;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.06);transform:translateY(-100%);opacity:0;pointer-events:none;transition:transform 0.3s ease, opacity 0.3s ease}
+      .nav-links.active{transform:translateY(0);opacity:1;pointer-events:auto}
+      .nav a.link{width:100%;padding:16px 24px;border-radius:0;text-align:left}
+      .mobile-menu-btn{display:block}
+    }
 
     main{margin-top:60px;min-height:calc(100vh - 60px)}
     .page{display:none}
@@ -109,12 +119,17 @@
         <span>CORE Coalition</span>
       </a>
       <div style="flex:1"></div>
-      <a class="link" onclick="showPage('home'); return false;">Home</a>
-      <a class="link" onclick="showPage('codex'); return false;">Codex</a>
-      <a class="link" onclick="showPage('doctrine'); return false;">Doctrine</a>
-      <a class="link" onclick="showPage('technology'); return false;">Technology</a>
-      <a class="link" onclick="showPage('contact'); return false;">Contact</a>
-      <a class="link" onclick="showPage('donate'); return false;">Donate</a>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <span id="menuIcon">☰</span>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a class="link" onclick="showPage('home'); closeMobileMenu();">Home</a>
+        <a class="link" onclick="showPage('codex'); closeMobileMenu();">Codex</a>
+        <a class="link" onclick="showPage('doctrine'); closeMobileMenu();">Doctrine</a>
+        <a class="link" onclick="showPage('technology'); closeMobileMenu();">Technology</a>
+        <a class="link" onclick="showPage('contact'); closeMobileMenu();">Contact</a>
+        <a class="link" onclick="showPage('donate'); closeMobileMenu();">Donate</a>
+      </div>
     </div>
   </header>
 
@@ -477,6 +492,21 @@
       document.getElementById(pageId).classList.add('active');
       window.scrollTo(0, 0);
       hdr.classList.remove('hide');
+    }
+
+    // Mobile menu functions
+    function toggleMobileMenu() {
+      const navLinks = document.getElementById('navLinks');
+      const menuIcon = document.getElementById('menuIcon');
+      navLinks.classList.toggle('active');
+      menuIcon.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+    }
+
+    function closeMobileMenu() {
+      const navLinks = document.getElementById('navLinks');
+      const menuIcon = document.getElementById('menuIcon');
+      navLinks.classList.remove('active');
+      menuIcon.textContent = '☰';
     }
 
     // Handle form submission
